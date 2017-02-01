@@ -1,0 +1,31 @@
+# Generated compiled files.
+target
+log
+www/app*
+www/shell*
+dist
+
+# Dependencies and other side-effect files
+node_modules
+npm-debug.log
+pom.xml
+*jar
+.nrepl-port
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/*
+
+# IntelliJ files https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/libraries
+.idea/replstate.xml
+*.ipr
+*.iws
+
+# Third party libraries checked out
+checkouts
+
+# Mac crap
+.DS_Store
