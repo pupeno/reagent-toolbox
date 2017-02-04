@@ -1,4 +1,4 @@
-# reagent-toolbox
+# Reagent Toolbox
 
 A wrapper for [React Toolbox](http://react-toolbox.com/) using cljsjs-react-toolbox and Reagent. 
 
