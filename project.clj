@@ -12,7 +12,7 @@
 
   :dependencies [[org.clojure/clojure "1.8.0" :scope "provided"]
                  [org.clojure/clojurescript "1.9.293" :scope "provided"]
-                 [cljsjs/react-with-addons "15.4.2-2" :scope "provided"]
+                 [cljsjs/react-with-addons "15.2.1-0" :scope "provided"]
                  [reagent "0.6.0" :exclusions [cljsjs/react] :scope "provided"]
                  [cljsjs/react-toolbox "2.0.0-beta.6-0"]]
 
