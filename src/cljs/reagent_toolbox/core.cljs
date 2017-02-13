@@ -19,7 +19,10 @@
 
 (def app-bar (reagent/adapt-react-class (.-AppBar js/ReactToolbox)))
 
-(def autocomplete (reagent/adapt-react-class (.-Autocomplete js/ReactToolbox)))
+(defn autocomplete [properties]
+  (let [autocomplete-component (reagent/adapt-react-class (.-Autocomplete js/ReactToolbox))
+        properties (as-element-by-key properties [:error :label])]
+    [autocomplete-component properties]))
 
 (def avatar (reagent/adapt-react-class (.-Avatar js/ReactToolbox)))
 
