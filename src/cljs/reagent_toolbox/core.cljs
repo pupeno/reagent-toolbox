@@ -5,6 +5,18 @@
   (:require cljsjs.react-toolbox
             [reagent.core :as reagent]))
 
+(defn- as-element-by-key
+  "Given a map of properties and a list of keys, if those are present and are not strings, it'll treat them as Reagent
+   components and wrap them with as-element so they can be used as React components."
+  [properties keys-to-componetize]
+  (into {}
+        (map (fn [[key value]]
+               [key (if (and (some #{key} keys-to-componetize)
+                             (not (string? value)))
+                      (reagent/as-element value)
+                      value)])
+             properties)))
+
 (def app-bar (reagent/adapt-react-class (.-AppBar js/ReactToolbox)))
 
 (def autocomplete (reagent/adapt-react-class (.-Autocomplete js/ReactToolbox)))
