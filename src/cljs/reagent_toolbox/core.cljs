@@ -17,7 +17,10 @@
                       value)])
              properties)))
 
-(def app-bar (reagent/adapt-react-class (.-AppBar js/ReactToolbox)))
+(defn app-bar [properties children]
+  (let [app-bar-component (reagent/adapt-react-class (.-AppBar js/ReactToolbox))
+        properties (as-element-by-key properties [:left-icon :right-icon])]
+    [app-bar-component properties children]))
 
 (defn autocomplete [properties]
   (let [autocomplete-component (reagent/adapt-react-class (.-Autocomplete js/ReactToolbox))
