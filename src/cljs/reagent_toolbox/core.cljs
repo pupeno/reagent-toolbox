@@ -61,7 +61,11 @@
 
 (def icon-menu (reagent/adapt-react-class (.-IconMenu js/ReactToolbox)))
 
-(def input (reagent/adapt-react-class (.-Input js/ReactToolbox)))
+(def input-component (reagent/adapt-react-class (.-Input js/ReactToolbox)))
+
+(defn input [properties]
+  (let [properties (as-element-by-key properties [:error])]
+    [input-component properties]))
 
 (def layout (reagent/adapt-react-class (.-Layout js/ReactToolbox)))
 
