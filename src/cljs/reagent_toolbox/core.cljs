@@ -17,14 +17,16 @@
                       value)])
              properties)))
 
+(def app-bar-component (reagent/adapt-react-class (.-AppBar js/ReactToolbox)))
+
 (defn app-bar [properties children]
-  (let [app-bar-component (reagent/adapt-react-class (.-AppBar js/ReactToolbox))
-        properties (as-element-by-key properties [:left-icon :right-icon])]
+  (let [properties (as-element-by-key properties [:left-icon :right-icon])]
     [app-bar-component properties children]))
 
+(def autocomplete-component (reagent/adapt-react-class (.-Autocomplete js/ReactToolbox)))
+
 (defn autocomplete [properties]
-  (let [autocomplete-component (reagent/adapt-react-class (.-Autocomplete js/ReactToolbox))
-        properties (as-element-by-key properties [:error :label])]
+  (let [properties (as-element-by-key properties [:error :label])]
     [autocomplete-component properties]))
 
 (def avatar (reagent/adapt-react-class (.-Avatar js/ReactToolbox)))
@@ -71,11 +73,12 @@
 
 (def list-divider (reagent/adapt-react-class (.-ListDivider js/ReactToolbox)))
 
-(defn list-item [args]
-  (let [list-item-component (reagent/adapt-react-class (.-ListItem js/ReactToolbox))
-        args (assoc args
-               :left-actions (map reagent/as-element (:left-actions args))
-               :right-actions (map reagent/as-element (:right-actions args)))]
+(def list-item-component (reagent/adapt-react-class (.-ListItem js/ReactToolbox)))
+
+(defn list-item [properties]
+  (let [args (assoc properties
+               :left-actions (map reagent/as-element (:left-actions properties))
+               :right-actions (map reagent/as-element (:right-actions properties)))]
     [list-item-component args]))
 
 (def list-sub-header (reagent/adapt-react-class (.-ListSubHeader js/ReactToolbox)))
