@@ -63,9 +63,40 @@
 
 (def input-component (reagent/adapt-react-class (.-Input js/ReactToolbox)))
 
-(defn input [properties]
-  (let [properties (as-element-by-key properties [:error])]
-    [input-component properties]))
+(defn input
+  [{:keys [value on-change] :as _props}]
+
+  ; Context for what's going on here:
+  ; https://github.com/reagent-project/reagent/blob/b65afde4d7ac4864d7e355acdc16977cb92afa3c/src/reagent/impl/template.cljs#L99
+  ; https://gist.github.com/metametadata/3b4e9d5d767dfdfe85ad7f3773696a60#file-react-bootstrap-cljs-L24-L50
+  ; https://stackoverflow.com/questions/28922275/in-reactjs-why-does-setstate-behave-differently-when-called-synchronously/28922465#28922465
+
+  (let [local-value (atom value)]                           ; regular atom is used instead of React's state to better control when renders should be triggered
+    (reagent/create-class
+      {:display-name            "ReagentToolboxInput"
+       :should-component-update (fn [_ [_ old-props] [_ new-props]]
+
+                                  (if (not= (:value new-props) @local-value) ; Update only if value is different from the rendered one or...
+                                    (do
+                                      (reset! local-value (:value new-props))
+                                      true)
+                                    (not= (dissoc new-props :value) ; other props changed
+                                          (dissoc old-props :value))))
+
+       :render                  (fn [this]                  ; TODO: change to reagent-render.
+                                  (let [properties (reagent/props this)
+                                        properties (if (and (contains? properties :value)
+                                                            (contains? properties :on-change))
+                                                     (assoc properties
+                                                       :value @local-value ; use value only from the local atom
+                                                       :on-change (fn wrapped-on-change [value event]
+                                                                    ; render immediately to sync DOM and virtual DOM
+                                                                    (reset! local-value value)
+                                                                    (reagent/force-update this)
+                                                                    ((:on-change properties) value event))) ; this will presumably update the value in global state atom
+                                               properties)
+                                        properties (as-element-by-key properties [:error :hint :icon :label])]
+                                    [input-component properties]))})))
 
 (def layout (reagent/adapt-react-class (.-Layout js/ReactToolbox)))
 
