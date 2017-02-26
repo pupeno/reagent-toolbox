@@ -83,18 +83,17 @@
                                     (not= (dissoc new-props :value) ; other props changed
                                           (dissoc old-props :value))))
 
-       :render                  (fn [this]                  ; TODO: change to reagent-render.
-                                  (let [properties (reagent/props this)
-                                        properties (if (and (contains? properties :value)
-                                                            (contains? properties :on-change))
-                                                     (assoc properties
-                                                       :value @local-value ; use value only from the local atom
-                                                       :on-change (fn wrapped-on-change [value event]
-                                                                    ; render immediately to sync DOM and virtual DOM
-                                                                    (reset! local-value value)
-                                                                    (reagent/force-update this)
-                                                                    ((:on-change properties) value event))) ; this will presumably update the value in global state atom
-                                               properties)
+       :reagent-render          (fn [argv _comp _jsprops _first-child]
+                                  (let [component (reagent/current-component)
+                                        input-hacked-properties (when (and (contains? argv :value)
+                                                                           (contains? argv :on-change))
+                                                                  (assoc argv
+                                                                    :value @local-value ; use value only from the local atom
+                                                                    :on-change (fn wrapped-on-change [value event] ; render immediately to sync DOM and virtual DOM
+                                                                                 (reset! local-value value)
+                                                                                 (reagent/force-update component)
+                                                                                 ((:on-change argv) value event)))) ; this will presumably update the value in global state atom
+                                        properties (or input-hacked-properties argv)
                                         properties (as-element-by-key properties [:error :hint :icon :label])]
                                     [input-component properties]))})))
 
