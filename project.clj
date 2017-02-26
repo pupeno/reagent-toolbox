@@ -18,4 +18,6 @@
 
   :plugins [[lein-cljsbuild "1.1.4"]]
 
-  :source-paths ["src/cljs"])
+  :source-paths ["src/cljs"]
+
+  :cljsbuild {:builds {:lib {:source-paths ["src/cljs"]}}})
