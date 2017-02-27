@@ -37,7 +37,13 @@
         properties (as-element-by-key properties [:icon :image :children])]
     [avatar-component properties children]))
 
-(def button (reagent/adapt-react-class (.-Button js/ReactToolbox)))
+(def button-component (reagent/adapt-react-class (.-Button js/ReactToolbox)))
+
+(defn button [properties-or-children & [children]]
+  (let [properties (if (map? properties-or-children) properties-or-children {})
+        children (if (map? properties-or-children) children properties-or-children)
+        properties (as-element-by-key properties [:icon])]
+    [button-component properties children]))
 
 (def card (reagent/adapt-react-class (.-Card js/ReactToolbox)))
 
@@ -63,7 +69,13 @@
 
 (def font-icon (reagent/adapt-react-class (.-FontIcon js/ReactToolbox)))
 
-(def icon-button (reagent/adapt-react-class (.-IconButton js/ReactToolbox)))
+(def icon-button-component (reagent/adapt-react-class (.-IconButton js/ReactToolbox)))
+
+(defn icon-button [properties-or-children & [children]]
+  (let [properties (if (map? properties-or-children) properties-or-children {})
+        children (if (map? properties-or-children) children properties-or-children)
+        properties (as-element-by-key properties [:icon])]
+    [icon-button-component properties children]))
 
 (def icon-menu (reagent/adapt-react-class (.-IconMenu js/ReactToolbox)))
 
