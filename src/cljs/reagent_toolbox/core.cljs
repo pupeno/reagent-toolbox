@@ -29,7 +29,13 @@
   (let [properties (as-element-by-key properties [:error :label])]
     [autocomplete-component properties]))
 
-(def avatar (reagent/adapt-react-class (.-Avatar js/ReactToolbox)))
+(def avatar-component (reagent/adapt-react-class (.-Avatar js/ReactToolbox)))
+
+(defn avatar [properties-or-children & [children]]
+  (let [properties (if (map? properties-or-children) properties-or-children {})
+        children (if (map? properties-or-children) children properties-or-children)
+        properties (as-element-by-key properties [:icon :image :children])]
+    [avatar-component properties children]))
 
 (def button (reagent/adapt-react-class (.-Button js/ReactToolbox)))
 
@@ -63,8 +69,7 @@
 
 (def input-component (reagent/adapt-react-class (.-Input js/ReactToolbox)))
 
-(defn input
-  [{:keys [value on-change] :as _props}]
+(defn input [{:keys [value on-change] :as _props}]
 
   ; Context for what's going on here:
   ; https://github.com/reagent-project/reagent/blob/b65afde4d7ac4864d7e355acdc16977cb92afa3c/src/reagent/impl/template.cljs#L99
