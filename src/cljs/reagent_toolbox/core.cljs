@@ -55,7 +55,12 @@
 
 (def card-title (reagent/adapt-react-class (.-CardTitle js/ReactToolbox)))
 
-(def checkbox (reagent/adapt-react-class (.-Checkbox js/ReactToolbox)))
+(def checkbox-component (reagent/adapt-react-class (.-Checkbox js/ReactToolbox)))
+
+(defn checkbox
+  [properties]
+  (let [properties (as-element-by-key properties [:checked :label])]
+    [checkbox-component properties]))
 
 (def chip (reagent/adapt-react-class (.-Chip js/ReactToolbox)))
 
