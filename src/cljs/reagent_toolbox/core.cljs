@@ -121,7 +121,12 @@
 
 (def layout (reagent/adapt-react-class (.-Layout js/ReactToolbox)))
 
-(def link (reagent/adapt-react-class (.-Link js/ReactToolbox)))
+(def link-component (reagent/adapt-react-class (.-Link js/ReactToolbox)))
+
+(defn link
+  [properties]
+  (let [properties (as-element-by-key properties [:active :count :href :icon :label])]
+    [link-component properties]))
 
 (def list (reagent/adapt-react-class (.-List js/ReactToolbox)))
 
