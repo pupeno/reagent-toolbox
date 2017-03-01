@@ -150,7 +150,12 @@
 
 (def nav-drawer (reagent/adapt-react-class (.-NavDrawer js/ReactToolbox)))
 
-(def navigation (reagent/adapt-react-class (.-Navigation js/ReactToolbox)))
+(def navigation-component (reagent/adapt-react-class (.-Navigation js/ReactToolbox)))
+
+(defn navigation
+  [poperties]
+  (let [properties (as-element-by-key properties [:type])]
+    [navigation-component properties]))
 
 (def panel (reagent/adapt-react-class (.-Panel js/ReactToolbox)))
 
