@@ -175,9 +175,21 @@
   (let [properties (as-element-by-key properties [:type :mode :value :buffer])]
     [progress-bar-component properties]))
 
-(def radio-button (reagent/adapt-react-class (.-RadioButton js/ReactToolbox)))
+(def radio-button-component (reagent/adapt-react-class (.-RadioButton js/ReactToolbox)))
 
-(def radio-group (reagent/adapt-react-class (.-RadioGroup js/ReactToolbox)))
+(defn radio-button
+  [properties]
+  (let [properties (as-element-by-key properties [:label :value :disabled :checked])]
+    [radio-button-component properties]))
+
+(def radio-group-component (reagent/adapt-react-class (.-RadioGroup js/ReactToolbox)))
+
+(defn radio-group
+  [properties-or-children & children]
+  (let [properties (if (map? properties-or-children) properties-or-children {})
+        children (if (map? properties-or-children) children properties-or-children)
+        properties (as-element-by-key properties [:name :value])]
+    (into [radio-group-component properties-or-children] children)))
 
 (def ripple (reagent/adapt-react-class (.-Ripple js/ReactToolbox)))
 
