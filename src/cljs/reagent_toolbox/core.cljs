@@ -72,7 +72,14 @@
 
 (def dropdown (reagent/adapt-react-class (.-Dropdown js/ReactToolbox)))
 
-(def font-icon (reagent/adapt-react-class (.-FontIcon js/ReactToolbox)))
+(def font-icon-component (reagent/adapt-react-class (.-FontIcon js/ReactToolbox)))
+
+(defn font-icon
+  [properties]
+  (let [properties (if (map? properties)
+                     (as-element-by-key properties [:value])
+                     properties)]
+    [font-icon-component properties]))
 
 (def icon-button-component (reagent/adapt-react-class (.-IconButton js/ReactToolbox)))
 
