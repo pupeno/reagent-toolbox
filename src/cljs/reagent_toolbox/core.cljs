@@ -168,7 +168,12 @@
 
 (def panel (reagent/adapt-react-class (.-Panel js/ReactToolbox)))
 
-(def progress-bar (reagent/adapt-react-class (.-ProgressBar js/ReactToolbox)))
+(def progress-bar-component (reagent/adapt-react-class (.-ProgressBar js/ReactToolbox)))
+
+(defn progress-bar
+  [properties]
+  (let [properties (as-element-by-key properties [:type :mode :value :buffer])]
+    [progress-bar-component properties]))
 
 (def radio-button (reagent/adapt-react-class (.-RadioButton js/ReactToolbox)))
 
