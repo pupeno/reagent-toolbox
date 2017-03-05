@@ -183,7 +183,12 @@
 
 (def sidebar (reagent/adapt-react-class (.-Sidebar js/ReactToolbox)))
 
-(def slider (reagent/adapt-react-class (.-Slider js/ReactToolbox)))
+(def slider-component (reagent/adapt-react-class (.-Slider js/ReactToolbox)))
+
+(defn slider
+  [properties]
+  (let [properties (as-element-by-key properties [:value])]
+    [slider-component properties]))
 
 (def snackbar (reagent/adapt-react-class (.-Snackbar js/ReactToolbox)))
 
