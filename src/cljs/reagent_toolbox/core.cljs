@@ -68,7 +68,11 @@
 
 (def dialog (reagent/adapt-react-class (.-Dialog js/ReactToolbox)))
 
-(def drawer (reagent/adapt-react-class (.-Drawer js/ReactToolbox)))
+(def drawer-component (reagent/adapt-react-class (.-Drawer js/ReactToolbox)))
+
+(defn drawer
+  [properties & children]
+  (into [drawer-component properties] children))
 
 (def dropdown-component (reagent/adapt-react-class (.-Dropdown js/ReactToolbox)))
 
