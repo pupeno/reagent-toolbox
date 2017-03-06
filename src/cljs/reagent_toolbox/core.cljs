@@ -70,7 +70,11 @@
 
 (def drawer (reagent/adapt-react-class (.-Drawer js/ReactToolbox)))
 
-(def dropdown (reagent/adapt-react-class (.-Dropdown js/ReactToolbox)))
+(def dropdown-component (reagent/adapt-react-class (.-Dropdown js/ReactToolbox)))
+
+(defn dropdown
+  [properties]
+  [dropdown-component properties])
 
 (def font-icon-component (reagent/adapt-react-class (.-FontIcon js/ReactToolbox)))
 
