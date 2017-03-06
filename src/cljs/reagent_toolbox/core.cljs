@@ -192,7 +192,12 @@
 
 (def snackbar (reagent/adapt-react-class (.-Snackbar js/ReactToolbox)))
 
-(def switch (reagent/adapt-react-class (.-Switch js/ReactToolbox)))
+(def switch-component (reagent/adapt-react-class (.-Switch js/ReactToolbox)))
+
+(defn switch
+  [properties]
+  (let [properties (as-element-by-key properties [])]
+    [switch-component properties]))
 
 (def tab (reagent/adapt-react-class (.-Tab js/ReactToolbox)))
 
