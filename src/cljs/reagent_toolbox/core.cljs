@@ -198,7 +198,11 @@
   (let [properties (as-element-by-key properties [:value])]
     [slider-component properties]))
 
-(def snackbar (reagent/adapt-react-class (.-Snackbar js/ReactToolbox)))
+(def snackbar-component (reagent/adapt-react-class (.-Snackbar js/ReactToolbox)))
+
+(defn snackbar
+  [properties]
+  [snackbar-component properties])
 
 (def switch-component (reagent/adapt-react-class (.-Switch js/ReactToolbox)))
 
