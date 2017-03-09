@@ -55,7 +55,12 @@
 
 (def card-title (reagent/adapt-react-class (.-CardTitle js/ReactToolbox)))
 
-(def checkbox (reagent/adapt-react-class (.-Checkbox js/ReactToolbox)))
+(def checkbox-component (reagent/adapt-react-class (.-Checkbox js/ReactToolbox)))
+
+(defn checkbox
+  [properties]
+  (let [properties (as-element-by-key properties [:checked :label])]
+    [checkbox-component properties]))
 
 (def chip (reagent/adapt-react-class (.-Chip js/ReactToolbox)))
 
@@ -63,11 +68,26 @@
 
 (def dialog (reagent/adapt-react-class (.-Dialog js/ReactToolbox)))
 
-(def drawer (reagent/adapt-react-class (.-Drawer js/ReactToolbox)))
+(def drawer-component (reagent/adapt-react-class (.-Drawer js/ReactToolbox)))
 
-(def dropdown (reagent/adapt-react-class (.-Dropdown js/ReactToolbox)))
+(defn drawer
+  [properties & children]
+  (into [drawer-component properties] children))
 
-(def font-icon (reagent/adapt-react-class (.-FontIcon js/ReactToolbox)))
+(def dropdown-component (reagent/adapt-react-class (.-Dropdown js/ReactToolbox)))
+
+(defn dropdown
+  [properties]
+  [dropdown-component properties])
+
+(def font-icon-component (reagent/adapt-react-class (.-FontIcon js/ReactToolbox)))
+
+(defn font-icon
+  [properties]
+  (let [properties (if (map? properties)
+                     (as-element-by-key properties [:value])
+                     properties)]
+    [font-icon-component properties]))
 
 (def icon-button-component (reagent/adapt-react-class (.-IconButton js/ReactToolbox)))
 
@@ -116,7 +136,12 @@
 
 (def layout (reagent/adapt-react-class (.-Layout js/ReactToolbox)))
 
-(def link (reagent/adapt-react-class (.-Link js/ReactToolbox)))
+(def link-component (reagent/adapt-react-class (.-Link js/ReactToolbox)))
+
+(defn link
+  [properties]
+  (let [properties (as-element-by-key properties [:active :count :href :icon :label])]
+    [link-component properties]))
 
 (def list (reagent/adapt-react-class (.-List js/ReactToolbox)))
 
@@ -140,25 +165,63 @@
 
 (def nav-drawer (reagent/adapt-react-class (.-NavDrawer js/ReactToolbox)))
 
-(def navigation (reagent/adapt-react-class (.-Navigation js/ReactToolbox)))
+(def navigation-component (reagent/adapt-react-class (.-Navigation js/ReactToolbox)))
+
+(defn navigation
+  [properties-or-children & children]
+  (let [properties (if (map? properties-or-children) properties-or-children {})
+        children (if (map? properties-or-children) children properties-or-children)
+        properties (as-element-by-key properties [:type])]
+    (into [navigation-component properties] children)))
 
 (def panel (reagent/adapt-react-class (.-Panel js/ReactToolbox)))
 
-(def progress-bar (reagent/adapt-react-class (.-ProgressBar js/ReactToolbox)))
+(def progress-bar-component (reagent/adapt-react-class (.-ProgressBar js/ReactToolbox)))
 
-(def radio-button (reagent/adapt-react-class (.-RadioButton js/ReactToolbox)))
+(defn progress-bar
+  [properties]
+  (let [properties (as-element-by-key properties [:type :mode :value :buffer])]
+    [progress-bar-component properties]))
 
-(def radio-group (reagent/adapt-react-class (.-RadioGroup js/ReactToolbox)))
+(def radio-button-component (reagent/adapt-react-class (.-RadioButton js/ReactToolbox)))
+
+(defn radio-button
+  [properties]
+  (let [properties (as-element-by-key properties [:label :value :disabled :checked])]
+    [radio-button-component properties]))
+
+(def radio-group-component (reagent/adapt-react-class (.-RadioGroup js/ReactToolbox)))
+
+(defn radio-group
+  [properties-or-children & children]
+  (let [properties (if (map? properties-or-children) properties-or-children {})
+        children (if (map? properties-or-children) children properties-or-children)
+        properties (as-element-by-key properties [:name :value])]
+    (into [radio-group-component properties-or-children] children)))
 
 (def ripple (reagent/adapt-react-class (.-Ripple js/ReactToolbox)))
 
 (def sidebar (reagent/adapt-react-class (.-Sidebar js/ReactToolbox)))
 
-(def slider (reagent/adapt-react-class (.-Slider js/ReactToolbox)))
+(def slider-component (reagent/adapt-react-class (.-Slider js/ReactToolbox)))
 
-(def snackbar (reagent/adapt-react-class (.-Snackbar js/ReactToolbox)))
+(defn slider
+  [properties]
+  (let [properties (as-element-by-key properties [:value])]
+    [slider-component properties]))
 
-(def switch (reagent/adapt-react-class (.-Switch js/ReactToolbox)))
+(def snackbar-component (reagent/adapt-react-class (.-Snackbar js/ReactToolbox)))
+
+(defn snackbar
+  [properties]
+  [snackbar-component properties])
+
+(def switch-component (reagent/adapt-react-class (.-Switch js/ReactToolbox)))
+
+(defn switch
+  [properties]
+  (let [properties (as-element-by-key properties [])]
+    [switch-component properties]))
 
 (def tab (reagent/adapt-react-class (.-Tab js/ReactToolbox)))
 
