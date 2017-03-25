@@ -57,8 +57,7 @@
 
 (def checkbox-component (reagent/adapt-react-class (.-Checkbox js/ReactToolbox)))
 
-(defn checkbox
-  [properties]
+(defn checkbox [properties]
   (let [properties (as-element-by-key properties [:checked :label])]
     [checkbox-component properties]))
 
@@ -70,20 +69,17 @@
 
 (def drawer-component (reagent/adapt-react-class (.-Drawer js/ReactToolbox)))
 
-(defn drawer
-  [properties & children]
+(defn drawer [properties & children]
   (into [drawer-component properties] children))
 
 (def dropdown-component (reagent/adapt-react-class (.-Dropdown js/ReactToolbox)))
 
-(defn dropdown
-  [properties]
+(defn dropdown [properties]
   [dropdown-component properties])
 
 (def font-icon-component (reagent/adapt-react-class (.-FontIcon js/ReactToolbox)))
 
-(defn font-icon
-  [properties]
+(defn font-icon [properties]
   (let [properties (if (map? properties)
                      (as-element-by-key properties [:value])
                      properties)]
@@ -102,12 +98,10 @@
 (def input-component (reagent/adapt-react-class (.-Input js/ReactToolbox)))
 
 (defn input [{:keys [value on-change] :as _props}]
-
   ; Context for what's going on here:
   ; https://github.com/reagent-project/reagent/blob/b65afde4d7ac4864d7e355acdc16977cb92afa3c/src/reagent/impl/template.cljs#L99
   ; https://gist.github.com/metametadata/3b4e9d5d767dfdfe85ad7f3773696a60#file-react-bootstrap-cljs-L24-L50
   ; https://stackoverflow.com/questions/28922275/in-reactjs-why-does-setstate-behave-differently-when-called-synchronously/28922465#28922465
-
   (let [local-value (atom value)]                           ; regular atom is used instead of React's state to better control when renders should be triggered
     (reagent/create-class
       {:display-name            "ReagentToolboxInput"
@@ -138,8 +132,7 @@
 
 (def link-component (reagent/adapt-react-class (.-Link js/ReactToolbox)))
 
-(defn link
-  [properties]
+(defn link [properties]
   (let [properties (as-element-by-key properties [:active :count :href :icon :label])]
     [link-component properties]))
 
@@ -167,8 +160,7 @@
 
 (def navigation-component (reagent/adapt-react-class (.-Navigation js/ReactToolbox)))
 
-(defn navigation
-  [properties-or-children & children]
+(defn navigation [properties-or-children & children]
   (let [properties (if (map? properties-or-children) properties-or-children {})
         children (if (map? properties-or-children) children properties-or-children)
         properties (as-element-by-key properties [:type])]
@@ -178,22 +170,19 @@
 
 (def progress-bar-component (reagent/adapt-react-class (.-ProgressBar js/ReactToolbox)))
 
-(defn progress-bar
-  [properties]
+(defn progress-bar [properties]
   (let [properties (as-element-by-key properties [:type :mode :value :buffer])]
     [progress-bar-component properties]))
 
 (def radio-button-component (reagent/adapt-react-class (.-RadioButton js/ReactToolbox)))
 
-(defn radio-button
-  [properties]
+(defn radio-button [properties]
   (let [properties (as-element-by-key properties [:label :value :disabled :checked])]
     [radio-button-component properties]))
 
 (def radio-group-component (reagent/adapt-react-class (.-RadioGroup js/ReactToolbox)))
 
-(defn radio-group
-  [properties-or-children & children]
+(defn radio-group [properties-or-children & children]
   (let [properties (if (map? properties-or-children) properties-or-children {})
         children (if (map? properties-or-children) children properties-or-children)
         properties (as-element-by-key properties [:name :value])]
@@ -205,21 +194,18 @@
 
 (def slider-component (reagent/adapt-react-class (.-Slider js/ReactToolbox)))
 
-(defn slider
-  [properties]
+(defn slider [properties]
   (let [properties (as-element-by-key properties [:value])]
     [slider-component properties]))
 
 (def snackbar-component (reagent/adapt-react-class (.-Snackbar js/ReactToolbox)))
 
-(defn snackbar
-  [properties]
+(defn snackbar [properties]
   [snackbar-component properties])
 
 (def switch-component (reagent/adapt-react-class (.-Switch js/ReactToolbox)))
 
-(defn switch
-  [properties]
+(defn switch [properties]
   (let [properties (as-element-by-key properties [])]
     [switch-component properties]))
 
