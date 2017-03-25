@@ -75,7 +75,19 @@
 (def dropdown-component (reagent/adapt-react-class (.-Dropdown js/ReactToolbox)))
 
 (defn dropdown [properties]
-  [dropdown-component properties])
+  (let [serialize-value pr-str
+        deserialize-value cljs.reader/read-string
+        source (map #(assoc % :value (serialize-value (:value %)))
+                    (:source properties))
+        properties (assoc properties :source source)
+        properties (if (:on-change properties)
+                     (assoc properties :on-change (fn [value]
+                                                    ((:on-change properties) (deserialize-value value))))
+                     properties)
+        properties (if (:value properties)
+                     (assoc properties :value (serialize-value (:value properties)))
+                     properties)]
+    [dropdown-component properties]))
 
 (def font-icon-component (reagent/adapt-react-class (.-FontIcon js/ReactToolbox)))
 
