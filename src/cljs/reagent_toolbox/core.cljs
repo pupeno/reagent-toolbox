@@ -195,9 +195,17 @@
 (def radio-group-component (reagent/adapt-react-class (.-RadioGroup js/ReactToolbox)))
 
 (defn radio-group [properties-or-children & children]
+  ; Sadly, radio-groups don't just work. It looks like the Radio Buttons and the Radio Groups cannot find each other.
+  ; That means we have te re-implement the automatic selection mechanism here.
+  ; Likely related to: https://github.com/react-toolbox/react-toolbox/issues/1361
   (let [properties (if (map? properties-or-children) properties-or-children {})
         children (if (map? properties-or-children) children properties-or-children)
-        properties (as-element-by-key properties [:name :value])]
+        children (if-let [on-change (:on-change properties)]
+                   (map (fn [child]
+                          (-> child
+                              (assoc-in [1 :on-change] (fn [] (on-change (:value (second child)))))
+                              (assoc-in [1 :checked] (= (:value properties) (:value (second child))))))
+                        children))]
     (into [radio-group-component properties-or-children] children)))
 
 (def ripple (reagent/adapt-react-class (.-Ripple js/ReactToolbox)))
