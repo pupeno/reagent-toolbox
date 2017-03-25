@@ -2,7 +2,7 @@
 
 (defproject tech.dashman/reagent-toolbox "0.1.0-SNAPSHOT"
   :description "A wrapper for React Toolbox using cljsjs-react-toolbox and Reagent."
-  :url "https://github.com/dashmantech/reagent-toolbox"
+  :url "https://dashman.tech/reagent-toolbox/"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
