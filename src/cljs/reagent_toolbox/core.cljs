@@ -3,7 +3,8 @@
 (ns reagent-toolbox.core
   (:refer-clojure :exclude [list])
   (:require cljsjs.react-toolbox
-            [reagent.core :as reagent]))
+            [reagent.core :as reagent]
+            [cljs.reader :as reader]))
 
 (defn- as-element-by-key
   "Given a map of properties and a list of keys, if those are present and are not strings, it'll treat them as Reagent
@@ -76,7 +77,7 @@
 
 (defn dropdown [properties]
   (let [serialize-value pr-str
-        deserialize-value cljs.reader/read-string
+        deserialize-value reader/read-string
         source (map #(assoc % :value (serialize-value (:value %)))
                     (:source properties))
         properties (assoc properties :source source)
