@@ -1,10 +1,12 @@
-;;;; Copyright © 2017 Flexpoint Tech Ltd
+;;;; Copyright © 2017 Flexpoint Tech Ltd.
 
 (ns reagent-toolbox.core
   (:refer-clojure :exclude [list])
   (:require cljsjs.react-toolbox
             [reagent.core :as reagent]
-            [cljs.reader :as reader]))
+            [cljs.reader :as reader]
+            [camel-snake-kebab.core :as csk]
+            [camel-snake-kebab.extras :as csk-extras]))
 
 (defn- as-element-by-key
   "Given a map of properties and a list of keys, if those are present and are not strings, it'll treat them as Reagent
@@ -66,7 +68,13 @@
 
 (def date-picker (reagent/adapt-react-class (.-DatePicker js/ReactToolbox)))
 
-(def dialog (reagent/adapt-react-class (.-Dialog js/ReactToolbox)))
+(def dialog-component (reagent/adapt-react-class (.-Dialog js/ReactToolbox)))
+
+(defn dialog [properties & children]
+  (let [properties (if-let [actions (:actions properties)]
+                     (assoc properties :actions (csk-extras/transform-keys csk/->camelCaseString actions))
+                     properties)]
+    (into [dialog-component properties] children)))
 
 (def drawer-component (reagent/adapt-react-class (.-Drawer js/ReactToolbox)))
 
