@@ -11,10 +11,10 @@
         :url  "https://github.com/dashmantech/reagent-toolbox"}
 
   :dependencies [[org.clojure/clojure "1.8.0" :scope "provided"]
-                 [org.clojure/clojurescript "1.9.293" :scope "provided"]
+                 [org.clojure/clojurescript "1.9.671" :scope "provided"]
                  [camel-snake-kebab "0.4.0" :scope "provided"]
-                 [cljsjs/react-with-addons "15.2.1-0" :scope "provided"]
-                 [reagent "0.6.0" :exclusions [cljsjs/react] :scope "provided"]
+                 [cljsjs/react-with-addons "15.6.1-0" :scope "provided"]
+                 [reagent "0.7.0" :exclusions [cljsjs/react] :scope "provided"]
                  [cljsjs/react-toolbox "2.0.0-beta.7-0"]]
 
   :plugins [[lein-cljsbuild "1.1.4"]]
